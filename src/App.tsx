@@ -1,18 +1,16 @@
-import { Col, Layout, Row, Typography } from 'antd';
+import { Col, Layout, Row } from 'antd';
 
-import { Searcher } from './components';
+import { PokemonList, Searcher } from './components';
 
 const  App = () => {
   return (
     <Layout.Content style={{ paddingTop: '1.5rem' }}>
-      <Typography.Title level={3}>
-        Pokedux
-      </Typography.Title>
       <Row>
         <Col span={8} offset={8}>
           <Searcher />
         </Col>
       </Row>
+      <PokemonList pokemons={Array(10).fill('')} />
     </Layout.Content>
   );
 }
