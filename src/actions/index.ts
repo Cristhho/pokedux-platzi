@@ -16,4 +16,9 @@ export const getPokemonWithDetails = (pokemons: FastPokemon[]) => async (dispatc
 export const setLoading = (payload: boolean): PokemonActions => ({
   type: 'SET_LOADING',
   payload
+});
+
+export const setFavorite = (payload: number): PokemonActions => ({
+  type: 'SET_FAVORITE',
+  payload
 })

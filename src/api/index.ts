@@ -12,7 +12,8 @@ export interface IPokemon {
   name: string,
   id: number,
   sprites: IPokemonSprite,
-  types: IPokemonType[]
+  types: IPokemonType[],
+  favorite: boolean
 }
 export interface FastPokemon {
   name: string,
