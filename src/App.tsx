@@ -3,7 +3,7 @@ import { Col, Layout, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PokemonList, Searcher } from './components';
-import { IPokemon, getPokemons } from './api';
+import { IPokemon, getPokemonDetails, getPokemons } from './api';
 import { setPokemons } from './actions';
 import { RootState } from './reducers/pokemons';
 
@@ -17,7 +17,8 @@ const App: FC<PropsFromRedux> = () => {
     const fetchPokemons = async () => {
       try {
         const data = await getPokemons();
-        dispatch(setPokemons(data));
+        const pokemonsDetailed = await Promise.all(data.map((pokemon) => getPokemonDetails(pokemon)));
+        dispatch(setPokemons(pokemonsDetailed));
       } catch (err) {
         console.log(err);
       }

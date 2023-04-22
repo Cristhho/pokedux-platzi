@@ -11,11 +11,11 @@ type PokemonCardProps = {
 export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <Card
-      title={`${pokemon.index ? pokemon.index + ': ' : ''}${pokemon.name}`}
-      cover={<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png' alt={pokemon.name} />}
+      title={`${pokemon.id ? pokemon.id + ': ' : ''}${pokemon.name}`}
+      cover={<img src={pokemon.sprites?.front_shiny} alt={pokemon.name} />}
       extra={<StarOutlined />}
     >
-      <Card.Meta description='fire, magic' />
+      <Card.Meta description={pokemon.types.map((_type) => _type.type.name).join(',')} />
     </Card>
   );
 }
