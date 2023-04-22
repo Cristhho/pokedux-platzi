@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
 import { PokemonCard } from './PokemonCard';
+import { IPokemon } from '../api';
 
 type PokemonListProps = {
-  pokemons: any[]
+  pokemons: IPokemon[]
 }
 
 export const PokemonList: FC<PokemonListProps> = ({ pokemons }) => {
@@ -16,7 +17,7 @@ export const PokemonList: FC<PokemonListProps> = ({ pokemons }) => {
       padding: '0 3rem 3rem'
     }}>
       {pokemons.map((pokemon, index) => {
-        return <PokemonCard key={index} />;
+        return <PokemonCard key={index} pokemon={pokemon} />;
       })}
     </div>
   );
