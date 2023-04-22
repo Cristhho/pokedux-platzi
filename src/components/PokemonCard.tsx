@@ -11,7 +11,7 @@ type PokemonCardProps = {
 export const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   return (
     <Card
-      title={pokemon.name}
+      title={`${pokemon.index ? pokemon.index + ': ' : ''}${pokemon.name}`}
       cover={<img src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/132.png' alt={pokemon.name} />}
       extra={<StarOutlined />}
     >

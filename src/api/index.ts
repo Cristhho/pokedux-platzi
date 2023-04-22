@@ -3,6 +3,7 @@ import axios from "axios";
 export interface IPokemon {
   name: string,
   url: string,
+  index?: number
 }
 interface PokemonsResponse {
   results: IPokemon[]
