@@ -12,3 +12,8 @@ export const getPokemonWithDetails = (pokemons: FastPokemon[]) => async (dispatc
   const pokemonsDetailed = await Promise.all(pokemons.map((pokemon) => getPokemonDetails(pokemon)));
   dispatch(setPokemons(pokemonsDetailed));
 }
+
+export const setLoading = (payload: boolean): PokemonActions => ({
+  type: 'SET_LOADING',
+  payload
+})
