@@ -1,33 +1,29 @@
 import { FC, useEffect } from 'react';
 import { Col, Layout, Row } from 'antd';
-import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { PokemonList, Searcher } from './components';
-import { getPokemons } from './api';
-import { RootState } from './reducers/pokemons';
+import { IPokemon, getPokemons } from './api';
 import { setPokemons } from './actions';
+import { RootState } from './reducers/pokemons';
 
-const mapState = (state: RootState) => ({
-  pokemons: state.pokemons
-});
-const mapDispatch = {
-  setPokemons
-};
-const connector = connect(mapState, mapDispatch)
-type PropsFromRedux = ConnectedProps<typeof connector>;
+type PropsFromRedux = {};
 
-const App: FC<PropsFromRedux> = ({ pokemons, setPokemons }) => {
+const App: FC<PropsFromRedux> = () => {
+  const pokemons = useSelector<RootState, IPokemon[]>((state) => state.pokemons);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
         const data = await getPokemons();
-        setPokemons(data);
+        dispatch(setPokemons(data));
       } catch (err) {
         console.log(err);
       }
     };
     fetchPokemons();
-  }, [setPokemons]);
+  }, [dispatch]);
 
   return (
     <Layout.Content style={{ paddingTop: '1.5rem' }}>
@@ -41,4 +37,4 @@ const App: FC<PropsFromRedux> = ({ pokemons, setPokemons }) => {
   );
 }
 
-export default connector(App);
+export default App;
