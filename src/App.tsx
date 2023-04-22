@@ -3,22 +3,22 @@ import { Col, Layout, Row } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { PokemonList, Searcher } from './components';
-import { IPokemon, getPokemonDetails, getPokemons } from './api';
-import { setPokemons } from './actions';
+import { IPokemon, getPokemons } from './api';
+import { getPokemonWithDetails } from './actions';
 import { RootState } from './reducers/pokemons';
+import { Dispatch } from 'redux';
 
 type PropsFromRedux = {};
 
 const App: FC<PropsFromRedux> = () => {
   const pokemons = useSelector<RootState, IPokemon[]>((state) => state.pokemons);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Dispatch<any>>();
 
   useEffect(() => {
     const fetchPokemons = async () => {
       try {
         const data = await getPokemons();
-        const pokemonsDetailed = await Promise.all(data.map((pokemon) => getPokemonDetails(pokemon)));
-        dispatch(setPokemons(pokemonsDetailed));
+        dispatch(getPokemonWithDetails(data));
       } catch (err) {
         console.log(err);
       }
