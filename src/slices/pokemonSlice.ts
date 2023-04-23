@@ -5,13 +5,11 @@ import { IPokemon, getPokemonDetails, getPokemons } from '../api';
 import { setLoading } from './uiSlice';
 
 export interface PokemonState {
-  pokemons: IPokemon[],
-  filteredPokemons: IPokemon[],
+  pokemons: IPokemon[]
 }
 
 const initialState: PokemonState = {
-  pokemons: [],
-  filteredPokemons: []
+  pokemons: []
 }
 
 export const fetchPokemons = createAsyncThunk(
@@ -43,12 +41,9 @@ export const pokemonSlice = createSlice({
         const isFav = state.pokemons[pokeIndex].favorite;
         state.pokemons[pokeIndex].favorite = !isFav;
       }
-    },
-    setFilteredPokemons: (state, actions) => {
-      state.filteredPokemons = actions.payload;
     }
   }
 });
 
-export const { setPokemons, setFavorite, setFilteredPokemons } = pokemonSlice.actions;
+export const { setPokemons, setFavorite } = pokemonSlice.actions;
 export default pokemonSlice.reducer;
