@@ -3,9 +3,9 @@ import { Col, Layout, Row, Spin } from 'antd';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { PokemonList, Searcher } from './components';
-import { IPokemon } from './api';
 import { Dispatch } from 'redux';
 import { fetchPokemons } from './slices/pokemonSlice';
+import { RootState } from './store';
 
 type PropsFromRedux = {};
 
@@ -18,8 +18,8 @@ const loader = (
 );
 
 const App: FC<PropsFromRedux> = () => {
-  const pokemons = useSelector<any, IPokemon[]>((state) => state.pokemons.pokemons, shallowEqual);
-  const loading = useSelector<any, boolean>((state) => state.ui.loading);
+  const pokemons = useSelector((state: RootState) => state.pokemon.pokemons, shallowEqual);
+  const loading = useSelector((state: RootState) => state.ui.loading);
   const dispatch = useDispatch<Dispatch<any>>();
 
   useEffect(() => {
