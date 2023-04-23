@@ -1,12 +1,11 @@
 import { FC, useEffect } from 'react';
 import { Col, Layout, Row, Spin } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { PokemonList, Searcher } from './components';
-import { IPokemon, getPokemons } from './api';
-import { getPokemonWithDetails, setLoading } from './actions';
-import { RootState } from './reducers/pokemons';
+import { IPokemon } from './api';
 import { Dispatch } from 'redux';
+import { fetchPokemons } from './slices/pokemonSlice';
 
 type PropsFromRedux = {};
 
@@ -19,23 +18,12 @@ const loader = (
 );
 
 const App: FC<PropsFromRedux> = () => {
-  const pokemons = useSelector<RootState, IPokemon[]>((state) => state.pokemons);
-  const loading = useSelector<RootState, boolean>((state) => state.loading);
+  const pokemons = useSelector<any, IPokemon[]>((state) => state.pokemons.pokemons, shallowEqual);
+  const loading = useSelector<any, boolean>((state) => state.ui.loading);
   const dispatch = useDispatch<Dispatch<any>>();
 
   useEffect(() => {
-    const fetchPokemons = async () => {
-      dispatch(setLoading(true));
-      try {
-        const data = await getPokemons();
-        dispatch(getPokemonWithDetails(data));
-      } catch (err) {
-        console.log(err);
-      } finally {
-        dispatch(setLoading(false));
-      }
-    };
-    fetchPokemons();
+    dispatch(fetchPokemons());
   }, [dispatch]);
 
   return (
